@@ -33,7 +33,7 @@ public class MovimientoJugador : MonoBehaviour
     }
     */
 
-    void Update()
+    private void Update()
     {
         MovimientoCamara();
         MovimientoPersonaje();
@@ -62,7 +62,7 @@ public class MovimientoJugador : MonoBehaviour
         float ratonX = Input.GetAxis("Mouse X") * velocidadRotación;
         float ratonY = Input.GetAxis("Mouse Y") * velocidadRotación;
         
-        rotacionX -= ratonX;
+        rotacionX -= ratonY;
         rotacionX = Mathf.Clamp(rotacionX, -90f, 90f);
 
         camaraPersonaje.transform.localRotation = Quaternion.Euler(rotacionX, 0, 0);
