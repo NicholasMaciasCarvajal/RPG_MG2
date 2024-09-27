@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    void Start()
+    [SerializeField] private GameObject panelGuardados;
+    [SerializeField] private GameObject panelNuevaPartida;
+
+    public void exitGame()
     {
-        
+        Application.Quit();
     }
 
-    void Update()
+    public void cargarPartida()
     {
-        
+
+    }
+
+    public void nuevaPartida()
+    {
+
+    }
+
+    public void continuarPartida()
+    {
+
     }
 }
