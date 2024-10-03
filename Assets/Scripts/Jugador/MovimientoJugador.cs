@@ -48,11 +48,12 @@ public class MovimientoJugador : MonoBehaviour
     private Vector3 movimiento;
     private float rotacionX;
 
+
     void MovimientoPersonaje()
     {
         float movX = Input.GetAxis("Horizontal");
         float movZ = Input.GetAxis("Vertical");
-
+        
         movimiento = transform.right * movX + transform.forward * movZ;
         characterController.SimpleMove(movimiento * velocidadMovimiento);
     }
