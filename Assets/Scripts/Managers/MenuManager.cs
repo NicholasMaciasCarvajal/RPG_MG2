@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,18 +14,4 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void cargarPartida()
-    {
-
-    }
-
-    public void nuevaPartida()
-    {
-
-    }
-
-    public void continuarPartida()
-    {
-
-    }
 }
