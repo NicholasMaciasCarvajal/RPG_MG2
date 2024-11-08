@@ -3,52 +3,57 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     private GameSaveManager saveManager;
+    private Vida vida;
+    private Levels levels;
 
     void Start()
     {
-        // Obtener la referencia al GameSaveManager
+        // Obtener la referencia al GameSaveManager, Vida y Levels
         saveManager = FindObjectOfType<GameSaveManager>();
+        vida = FindObjectOfType<Vida>();
+        levels = FindObjectOfType<Levels>();
     }
 
     // Método para guardar el juego
     public void SaveGame()
     {
-        GameData currentData = new GameData
+        if (saveManager != null && vida != null && levels != null)
         {
-            playerLevel = 5, // Ejemplo: nivel actual del jugador
-            playerHealth = 80f, // Ejemplo: salud actual del jugador
-            playerPosition = new Vector3(1.5f, 0f, 2.3f) // Ejemplo: posición actual del jugador
-        };
-
-        saveManager.SaveGame(currentData);
-        Debug.Log("Juego guardado.");
+            // Guardar el estado actual del jugador
+            saveManager.SaveGame();
+            Debug.Log("Juego guardado.");
+        }
+        else
+        {
+            Debug.LogWarning("No se pudo guardar el juego. Verifica que todos los componentes estén asignados.");
+        }
     }
 
     // Método para cargar el juego
     public void LoadGame()
     {
-        GameData loadedData = saveManager.LoadGame();
-
-        if (loadedData != null)
+        if (saveManager != null && vida != null && levels != null)
         {
-            // Usar los datos cargados para restaurar el estado del juego
-            Debug.Log("Nivel del jugador: " + loadedData.playerLevel);
-            Debug.Log("Salud del jugador: " + loadedData.playerHealth);
-            Debug.Log("Posición del jugador: " + loadedData.playerPosition);
-
-            // Aquí podrías actualizar el estado real del jugador en el juego
+            saveManager.LoadGame();
+            Debug.Log("Juego cargado con éxito.");
+        }
+        else
+        {
+            Debug.LogWarning("No se pudo cargar el juego. Verifica que todos los componentes estén asignados.");
         }
     }
+
+    // Método para iniciar una nueva partida
     public void NewGame()
     {
-        GameData newGameData = saveManager.NewGame();
-
-        // Configurar el juego para iniciar una nueva partida
-        Debug.Log("Nueva partida creada:");
-        Debug.Log("Nivel inicial del jugador: " + newGameData.playerLevel);
-        Debug.Log("Salud inicial del jugador: " + newGameData.playerHealth);
-        Debug.Log("Posición inicial del jugador: " + newGameData.playerPosition);
-
-        // Aquí podrías inicializar el estado del jugador para la nueva partida
+        if (saveManager != null && vida != null && levels != null)
+        {
+            saveManager.NewGame();
+            Debug.Log("Nueva partida iniciada.");
+        }
+        else
+        {
+            Debug.LogWarning("No se pudo iniciar una nueva partida. Verifica que todos los componentes estén asignados.");
+        }
     }
 }

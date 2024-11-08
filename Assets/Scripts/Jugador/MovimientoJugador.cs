@@ -39,7 +39,7 @@ public class MovimientoJugador : MonoBehaviour
         MovimientoPersonaje();
     }
 
-    [SerializeField] private float velocidadMovimiento;
+    public float velocidadMovimiento;
     [SerializeField] private float velocidadRotación;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform transformPersonaje;
