@@ -10,24 +10,40 @@ public class GameData
     public float playerHealth;
     public Vector3 playerPosition;
     public float maxPlayerHealth;
-
 }
 
 public class GameSaveManager : MonoBehaviour
 {
     private string saveFilePath;
 
-    // Referencias a otros componentes
-    private Vida vida;
-    private Levels levels;
-    private Transform playerTransform;
+    public static GameSaveManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    // Referencias a otros componentes (se asignan desde el Inspector)
+    [SerializeField] private Vida vida;
+    [SerializeField] private Levels levels;
+    [SerializeField] private Transform playerTransform;
 
     void Start()
     {
         saveFilePath = Application.persistentDataPath + "/savegame.dat";
-        vida = FindObjectOfType<Vida>();
-        levels = FindObjectOfType<Levels>();
-        playerTransform = vida.transform;  // Asumiendo que la posición de Vida es la posición del jugador
+
+        // Opcional: verificar si las referencias están asignadas para evitar errores
+        if (vida == null || levels == null || playerTransform == null)
+        {
+            Debug.LogWarning("Algunas referencias no están asignadas en el Inspector.");
+        }
     }
 
     // Método para guardar el juego

@@ -603,8 +603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133a92c9d817e1a49834953d2d0c981d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelGuardados: {fileID: 0}
-  panelNuevaPartida: {fileID: 0}
 --- !u!1 &580205754
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,6 +961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e1c3b7533e5684cbd039a496924354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveManager: {fileID: 0}
+  vida: {fileID: 0}
+  levels: {fileID: 0}
 --- !u!1 &1157480961
 GameObject:
   m_ObjectHideFlags: 0

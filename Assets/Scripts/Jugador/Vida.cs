@@ -74,9 +74,10 @@ public class Vida : MonoBehaviour
 
     public void Heal(float amount)
     {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthBar();
+            currentHealth += amount;
+            amount += 1;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHealthBar();
     }
 
     public void UpdateHealthBar()

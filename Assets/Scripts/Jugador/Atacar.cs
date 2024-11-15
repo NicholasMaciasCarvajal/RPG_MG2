@@ -65,7 +65,6 @@ public class Atacar : MonoBehaviour
 
     void DañarEnemigosEnRango()
     {
-        // Encontrar todos los objetos con el tag de enemigo
         GameObject[] enemigos = GameObject.FindGameObjectsWithTag(enemigoTag);
 
         foreach (GameObject enemigo in enemigos)
@@ -73,16 +72,12 @@ public class Atacar : MonoBehaviour
             Vector3 direccionAlEnemigo = enemigo.transform.position - transform.position;
             float distanciaAlEnemigo = direccionAlEnemigo.magnitude;
 
-            // Verificar que el enemigo esté dentro de la distancia de ataque
             if (distanciaAlEnemigo > distanciaAtaque) continue;
 
-            // Calcular el ángulo entre la dirección del jugador y la dirección al enemigo
             float angulo = Vector3.Angle(transform.forward, direccionAlEnemigo);
 
-            // Verificar si el ángulo está dentro del rango permitido
             if (angulo <= anguloAtaque / 2)
             {
-                // Intentar obtener el componente EnemigoVida del enemigo y aplicarle daño
                 EnemigoVida enemigoVida = enemigo.GetComponent<EnemigoVida>();
                 if (enemigoVida != null)
                 {

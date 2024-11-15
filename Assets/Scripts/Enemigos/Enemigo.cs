@@ -17,6 +17,8 @@ public class Enemigo : MonoBehaviour
     public float attackCooldown = 2f; // Tiempo de espera entre ataques en segundos
     private float nextAttackTime = 0f; // Marca de tiempo para el próximo ataque permitido
 
+    private float fixedYPosition; // Posición fija en el eje y
+
     private void Start()
     {
         // Encuentra al jugador y obtiene su componente Vida
@@ -25,6 +27,9 @@ public class Enemigo : MonoBehaviour
         {
             playerVida = target.GetComponent<Vida>();
         }
+
+        // Guardar la posición inicial en el eje y
+        fixedYPosition = transform.position.y;
     }
 
     void Update()
@@ -39,13 +44,19 @@ public class Enemigo : MonoBehaviour
         // Verificar si el objetivo está dentro del radio de seguimiento
         if (distance < followRadius && distance > stoppingDistance)
         {
-            // Interpolar suavemente hacia la posición del objetivo
-            transform.position = Vector3.Lerp(transform.position, target.position, followSpeed * Time.deltaTime);
+            // Interpolar suavemente hacia la posición del objetivo en el plano x-z
+            Vector3 targetPosition = new Vector3(target.position.x, fixedYPosition, target.position.z);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
 
-            // Rotar hacia el objetivo
+            // Rotar hacia el objetivo en el eje y únicamente
             Vector3 direction = (target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, followSpeed * Time.deltaTime);
+            direction.y = 0; // Elimina cualquier rotación en el eje x y z
+
+            if (direction != Vector3.zero) // Asegura que la dirección no sea un vector cero
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, followSpeed * Time.deltaTime);
+            }
         }
         // Si el enemigo está a la distancia de parada y ha pasado el tiempo de cooldown, inflige daño al jugador
         else if (distance <= stoppingDistance && Time.time >= nextAttackTime)
@@ -55,4 +66,3 @@ public class Enemigo : MonoBehaviour
         }
     }
 }
-

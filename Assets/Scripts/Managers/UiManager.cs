@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class UiManager : MonoBehaviour
 {
@@ -29,9 +28,7 @@ public class UiManager : MonoBehaviour
         {
             if (Time.timeScale == 1)
             {
-                Time.timeScale = 0;
-                pausePanel.SetActive(true);
-                vidaPanel.SetActive(false);
+                Pause();
             }
             else if (Time.timeScale == 0)
             {
@@ -44,10 +41,26 @@ public class UiManager : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+        vidaPanel.SetActive(false);
+
+        // Desbloquear el cursor cuando el juego está en pausa
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void Resume()
     {
         Time.timeScale = 1;
         pausePanel.SetActive(false);
         vidaPanel.SetActive(true);
+
+        // Bloquear el cursor cuando se reanuda el juego
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

@@ -33,6 +33,11 @@ public class MovimientoJugador : MonoBehaviour
     }
     */
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         MovimientoCamara();
